@@ -39,6 +39,59 @@
                [  4   3   2   1   0]))
     (where :part (is :leader))))
 
+(def melody-ode 
+               
+  (->> (phrase [1/4 1/4 1/4 1/4]
+               [  2   2   3   4])
+       (then
+        (phrase [1/4 1/4 1/4 1/4]
+                [  4   3   2   1]))
+       (then
+        (phrase [1/4 1/4 1/4 1/4]
+                [  0   0   1   2]))
+       (then
+        (phrase [3/8 1/8 2/4]
+                [  2   1   1]))
+    ;; (then
+    ;;            ; Gently down the stream,
+    ;;    (phrase [2/3 1/3 2/3 1/3 6/3]
+    ;;            [  2   1   2   3   4]))
+    ;; (then
+    ;;            ; Merrily, merrily, merrily, merrily,
+    ;;    (phrase (repeat 12 1/3) 
+    ;;            (mapcat (partial repeat 3) [7 4 2 0])))
+    ;; (then
+    ;;            ; Life is but a dream!
+    ;;    (phrase [2/3 1/3 2/3 1/3 6/3] 
+    ;;            [  4   3   2   1   0]))
+    (where :part (is :leader))))
+(def countermelody-ode 
+               
+  (->> (phrase [1/4 1/4 1/4 1/4]
+               [  0   0   1   2])
+       (then
+        (phrase [1/4 1/4 1/4 2/12 1/12]
+                [  2   1   0   0 1]))
+       (then
+        (phrase [1/4 1/4 1/4 1/4]
+                [  2   2   -3   0]))
+       (then
+        (phrase [3/8 1/8 2/4]
+                [  0   -1   -1]))
+    ;; (then
+    ;;            ; Gently down the stream,
+    ;;    (phrase [2/3 1/3 2/3 1/3 6/3]
+    ;;            [  2   1   2   3   4]))
+    ;; (then
+    ;;            ; Merrily, merrily, merrily, merrily,
+    ;;    (phrase (repeat 12 1/3) 
+    ;;            (mapcat (partial repeat 3) [7 4 2 0])))
+    ;; (then
+    ;;            ; Life is but a dream!
+    ;;    (phrase [2/3 1/3 2/3 1/3 6/3] 
+    ;;            [  4   3   2   1   0]))
+    (where :part (is :leader))))
+
 (def bass "A bass part to accompany the melody."
   (->> (phrase [1  1 2]
                [0 -3 0])
@@ -58,7 +111,19 @@
     (where :pitch key)
     play))
 
+(defn ode-to-joy
+
+  [speed key]
+  (->> melody-ode
+    (with countermelody-ode)
+    (times 1)
+      (where :time speed)
+    (where :duration speed)
+    (where :pitch key)
+    play))
+
 (comment
   (row-row (bpm 120) (comp C sharp major))
   (row-row (bpm 90) (comp low B flat minor))
+  (ode-to-joy (bpm 50) (comp C major))
 )
