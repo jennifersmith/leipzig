@@ -125,6 +125,32 @@
     ;;            [  4   3   2   1   0]))
     (where :part (is :alto1))))
 
+(def countermelody-ode-sop2
+               
+  (->> (phrase [1/4 1/4 1/4 1/4]
+               [  -3   -3   -3   -3])
+       (then
+        (phrase [1/4 1/4 1/4 2/12 1/12]
+                [  -3   -3   -3   -3 -4]))
+       (then
+        (phrase [1/4 1/4 1/4 1/4]
+                [  -5   -3   -3   -3]))
+       (then
+        (phrase [3/8 1/8 2/4]
+                [  -3   -3   -3]))
+    ;; (then
+    ;;            ; Gently down the stream,
+    ;;    (phrase [2/3 1/3 2/3 1/3 6/3]
+    ;;            [  2   1   2   3   4]))
+    ;; (then
+    ;;            ; Merrily, merrily, merrily, merrily,
+    ;;    (phrase (repeat 12 1/3) 
+    ;;            (mapcat (partial repeat 3) [7 4 2 0])))
+    ;; (then
+    ;;            ; Life is but a dream!
+    ;;    (phrase [2/3 1/3 2/3 1/3 6/3] 
+    ;;            [  4   3   2   1   0]))
+    (where :part (is :alto1))))
 (def bass "A bass part to accompany the melody."
   (->> (phrase [1  1 2]
                [0 -3 0])
@@ -150,6 +176,7 @@
   (->> melody-ode
     (with countermelody-ode)
     (with countermelody-ode-alto2)
+    (with countermelody-ode-sop2)
     (times 1)
       (where :time speed)
     (where :duration speed)
